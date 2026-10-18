@@ -13,9 +13,43 @@ namespace tabuleiro {
         public Peca peca ( int linha, int coluna){
             return pecas [linha, coluna];
         }
+
+        public Peca peca ( Posicao pos){
+            return pecas[pos.linha, pos.coluna];
+        }
+    
         public void ColocarPeca(Peca p,Posicao pos){
             pecas[pos.linha, pos.coluna] = p;
             p.posicao=pos;
+        }
+
+        public bool posicaoValida (Posicao pos){
+            if(pos.linha>=linhas || pos.coluna<0 || pos.coluna >= colunas){
+                return false;
+            }
+            return true;
+        }
+        public void validarPosicao(Posicao pos)
+        {
+            if (!posicaoValida(pos)){
+              throw new TabuleiroExcepetion("Posição inválida!");
+            }
+        }
+    }
+
+    [Serializable]
+    internal class TabuleiroExcepetion : Exception
+    {
+        public TabuleiroExcepetion()
+        {
+        }
+
+        public TabuleiroExcepetion(string? message) : base(message)
+        {
+        }
+
+        public TabuleiroExcepetion(string? message, Exception? innerException) : base(message, innerException)
+        {
         }
     }
 }
